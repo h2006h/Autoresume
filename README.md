@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Markdown Resume Builder
 
-## Getting Started
+基于 Markdown 的个人简历生成工具 — 左侧编辑、右侧实时预览、一键导出 PDF。
 
-First, run the development server:
+## 功能
+
+- **Markdown 编辑器** — 集成 CodeMirror 6，语法高亮、代码折叠、自动补全
+- **实时预览** — Markdown → HTML 实时渲染，A4 纸张比例预览
+- **PDF 导出** — Puppeteer 驱动 Headless Chrome，输出 A4 矢量 PDF
+- **照片上传** — 点击上传照片，自动嵌入简历头部
+- **标签式技能** — 技能以标签组件展示，分类清晰
+- **本地运行** — 完全离线，无需数据库，数据由 Git 管理
+
+## 技术栈
+
+| 层面 | 选型 |
+|------|------|
+| 框架 | Next.js 16 + TypeScript |
+| 样式 | TailwindCSS v4 |
+| 编辑器 | CodeMirror 6 (`@uiw/react-codemirror`) |
+| Markdown 解析 | unified + remark-parse + remark-html |
+| PDF 导出 | Puppeteer |
+
+## 快速开始
 
 ```bash
+# 安装依赖
+npm install
+
+# 启动开发服务器
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+浏览器打开 http://localhost:3000 即可使用。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 使用方式
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. 在左侧编辑器中编写 Markdown 简历
+2. 右侧实时预览渲染效果
+3. 点击「上传照片」选择个人照片（照片保存在 `public/photo.jpg`，默认已加入 `.gitignore`）
+4. 点击「导出 PDF」下载 A4 格式简历
 
-## Learn More
+### 简历结构
 
-To learn more about Next.js, take a look at the following resources:
+```md
+## 教育经历
+## 个人荣誉
+## 项目经历
+## 技能
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+技能使用 HTML 标签式布局，支持自定义分类和标签。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 项目结构
 
-## Deploy on Vercel
+```
+autoresume/
+├── app/
+│   ├── api/
+│   │   ├── export-pdf/route.ts   # PDF 导出 API
+│   │   └── upload-photo/route.ts # 照片上传 API
+│   ├── globals.css               # 全局样式 + 简历排版
+│   ├── layout.tsx                # 根布局
+│   └── page.tsx                  # 主页面（分栏布局）
+├── components/
+│   ├── Editor.tsx                # CodeMirror 编辑器
+│   ├── Preview.tsx               # 简历预览（A4 尺寸）
+│   └── Toolbar.tsx               # 工具栏（上传照片/导出 PDF）
+├── content/
+│   └── resume.md                 # 简历模板（源文件）
+├── lib/
+│   ├── markdown.ts               # Markdown → HTML 转换
+│   └── pdf.ts                    # Puppeteer PDF 生成
+└── public/
+    └── content/resume.md         # 简历模板（HTTP 访问）
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## PDF 导出
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+首次使用需安装 Chromium：
+
+```bash
+npx puppeteer browsers install chrome
+```
+
+## License
+
+MIT

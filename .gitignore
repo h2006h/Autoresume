@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# user photo (privacy)
+public/photo.jpg
+public/photo.*
+
+# pdf output
+/output
