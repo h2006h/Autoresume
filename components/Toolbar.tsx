@@ -10,6 +10,8 @@ interface ToolbarProps {
 export default function Toolbar({ markdown, onMarkdownChange }: ToolbarProps) {
   const [exporting, setExporting] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [pushing, setPushing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleExportPdf = async () => {
@@ -54,7 +56,6 @@ export default function Toolbar({ markdown, onMarkdownChange }: ToolbarProps) {
 
       if (!res.ok) throw new Error('Upload failed');
 
-      // Replace placeholder div with img tag, with cache-busting timestamp
       const ts = Date.now();
       const newMd = markdown.replace(
         /<div class="resume-photo-placeholder">[^<]*<\/div>/,
@@ -66,6 +67,54 @@ export default function Toolbar({ markdown, onMarkdownChange }: ToolbarProps) {
       alert('照片上传失败');
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      const res = await fetch('/api/save-resume', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ markdown }),
+      });
+
+      if (!res.ok) throw new Error('Save failed');
+    } catch (err) {
+      console.error('Save failed:', err);
+      alert('保存失败');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleGitPush = async () => {
+    setPushing(true);
+    try {
+      // Save first
+      await fetch('/api/save-resume', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ markdown }),
+      });
+
+      // Then commit + push
+      const res = await fetch('/api/git-push', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: 'update resume' }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Push failed');
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : '提交失败';
+      console.error('Git push failed:', err);
+      alert(msg);
+    } finally {
+      setPushing(false);
     }
   };
 
@@ -88,6 +137,20 @@ export default function Toolbar({ markdown, onMarkdownChange }: ToolbarProps) {
           className="px-3 py-1.5 text-sm bg-zinc-700 text-zinc-200 rounded hover:bg-zinc-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {uploading ? '上传中...' : '上传照片'}
+        </button>
+        <button
+          onClick={handleSave}
+          disabled={saving}
+          className="px-3 py-1.5 text-sm bg-emerald-700 text-emerald-100 rounded hover:bg-emerald-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        >
+          {saving ? '保存中...' : '暂存'}
+        </button>
+        <button
+          onClick={handleGitPush}
+          disabled={pushing}
+          className="px-3 py-1.5 text-sm bg-violet-700 text-violet-100 rounded hover:bg-violet-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        >
+          {pushing ? '提交中...' : '提交'}
         </button>
         <button
           onClick={handleExportPdf}
