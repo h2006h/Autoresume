@@ -1,14 +1,14 @@
 <div class="resume-header">
   <div class="resume-photo">
-    <div class="resume-photo-placeholder">照片</div>
+    <img src="/photo.jpg?v=1779608708226" alt="照片">
   </div>
   <div class="resume-info">
-    <h1>张三</h1>
+    <h1>钱建辉</h1>
     <table class="resume-info-table">
-      <tr><td class="label">性　　别</td><td>男</td><td class="label">出生日期</td><td>1996.06</td></tr>
-      <tr><td class="label">政治面貌</td><td>中共党员</td><td class="label">民　　族</td><td>汉族</td></tr>
-      <tr><td class="label">联系电话</td><td>138-0000-0000</td><td class="label">电子邮箱</td><td>zhangsan@example.com</td></tr>
-      <tr><td class="label">求职意向</td><td>Agent 工程师</td><td class="label">GitHub</td><td>github.com/zhangsan</td></tr>
+      <tr><td class="label">性　　别</td><td>男</td><td class="label">出生日期</td><td>2006.06</td></tr>
+      <tr><td class="label">政治面貌</td><td>共青团员</td><td class="label">民　　族</td><td>汉族</td></tr>
+      <tr><td class="label">联系电话</td><td>18726138581</td><td class="label">电子邮箱</td><td>qjianh@qq.com</td></tr>
+      <tr><td class="label">求职意向</td><td>Agent应用开发</td><td class="label">GitHub</td><td>https://github.com/h2006h</td></tr>
     </table>
   </div>
 </div>
@@ -17,24 +17,25 @@
 
 ## 教育经历
 
-### 清华大学
+### 昆明学院
 
-> 2018.09 - 2021.06 | 硕士 · 计算机科学与技术
+> 2024.09 - 今 | 本科 · 数据科学与大数据技术
 
-**主修课程：** 算法设计与分析、数据结构、操作系统、计算机网络、数据库系统、软件工程、编译原理、人工智能、机器学习、分布式系统
+**主修课程：** 高等数学、线性代数、概率论与数理统计、离散数学、数据结构、计算机网络、数据库原理、人工智能、机器学习
 
-## 个人荣誉
+## 个人证书
 
-- **ACM-ICPC 亚洲区域赛** 银牌 · 2019
-- **国家奖学金** · 2020
-- **校级优秀硕士学位论文** · 2021
-- **开源项目 GitHub 500+ Star** · AgentHub · 2026
+- **蓝桥杯** 省二 · 2025
+- **数学建模** 省二 · 2025
+- **国家励志奖学金** · 2025
+- **软件设计师** · 2025
+- **码蹄杯** 省铜· 2026
 
 ## 项目经历
 
 ### AIFriends — AI 虚拟角色创作分享平台
 
-> 2025.06 - 至今 | 独立开发
+> 2025.12 - 2026.03 | 独立开发
 
 - 基于大语言模型的虚拟角色平台，用户可创建多个虚拟角色并自定义音色、性格与简介
 - 后端使用 **Django + Django REST Framework**，前端采用 **Vue 3 + Composition API**
@@ -43,27 +44,17 @@
 - 支持**语音复刻**：上传少量音频样本生成个性化音色，实现角色声音定制
 - 采用 **前后端分离 + RESTful API** 架构，JWT 认证，WebSocket 实时推送消息
 
-### Resume Builder — 个人简历生成系统
-
-> 2024.01 - 至今 | 独立开发
-
-- 基于 Markdown 的简历生成工具，支持实时预览、多模板切换、PDF 导出
-- 前端使用 **Next.js 16 + TypeScript + TailwindCSS v4**，采用 App Router 架构
-- 编辑器集成 **CodeMirror 6**，配置 Markdown 语法高亮、代码折叠与自动补全
-- Markdown 解析使用 **unified + remark-parse + remark-html** 管道，AST → 结构化 HTML
-- PDF 导出基于 **Puppeteer** 启动 Headless Chrome，渲染 A4 页面并输出矢量 PDF
-
 ### AgentHub — 轻量级 Multi-Agent 调度系统
 
-> 2026.05 | 独立开发
+> 2026.03 - 2026.05| 独立开发
 
 - 自研 Multi-Agent 框架，不依赖 LangChain，从底层实现 LLM 调用、流式响应、上下文管理与 Agent 路由
 - 后端使用 **Node.js + Express + TypeScript**，前端采用 **Vue 3 (Composition API) + Element Plus + Pinia**
 - 集成 **DeepSeek API** 流式输出（SSE），滑动窗口上下文截断 + Token 估算，单汉字 1.3/token
 - 实现 **WebSocket** 实时消息推送，Agent 回复 Token 逐字显示，支持 API 3 次指数退避重试（1s/2s/4s + jitter）
 - 自研 Agent 热加载机制：Prompt 配置从 **SQLite** 动态加载，60s TTL 缓存，零重启切换
-- 内置三大 Agent：知识问答（RAG 思路）、任务管理（AI 自动拆分 + Kanban 看板）、代码审查（Monaco Editor + diff2html 差异对比）
-- 前端 **50+ CSS 自定义属性**实现 Glass Morphism 毛玻璃风格，Grid 双列自适应，暗色代码审阅面板
+- 内置三大 Agent：知识问答（RAG 思路）、任务管理（AI 自动拆分 +  看板）、代码审查（Monaco Editor + diff2html 差异对比）
+
 
 ## 技能
 
@@ -114,3 +105,6 @@
 <span class="skill-tag">Vite</span>
 </div>
 </div>
+
+## 自我评价
+- 具备较强自驱力，了解 AI Agent 领域并抱有浓厚探索热情，主动跟进前沿技术持续学习。拥有实操项目经验，熟练运用 Claude Code、Cursor 等智能开发工具，适配研发岗位节奏，可快速上手开展工作。
